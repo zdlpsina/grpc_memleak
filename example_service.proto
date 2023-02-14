@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service StreamService {
+    rpc StreamDecode(stream DecodeRequest) returns (stream DecodeResult) {}
+}
+
+message DecodeRequest {
+    bytes audio_data = 1;
+}
+
+message DecodeResult {
+    // false for intermediate partial results, true for final full result.
+    bool final = 1;
+    string text_result = 2;
+}

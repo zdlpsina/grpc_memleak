@@ -1,0 +1,13 @@
+FROM python:3.10.4-bullseye
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN python -m venv /venv \
+    && /venv/bin/pip install --no-cache-dir -r requirements.txt
+
+COPY client.py ./
+COPY example_service.proto ./
+RUN /venv/bin/python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. example_service.proto
+
+ENTRYPOINT [ "/venv/bin/python", "/app/client.py" ]
