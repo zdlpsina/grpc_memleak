@@ -24,6 +24,7 @@ jobs:
         name: Build and push api
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: "{{defaultContext}}"
+          file: "./Dockerfile"
           push: true
           tags: zizdlp/grpc_memleak
