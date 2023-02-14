@@ -21,10 +21,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push api
+        name: Build and push server
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}"
           file: "./Dockerfile"
           push: true
-          tags: zizdlp/grpc_memleak
+          tags: zizdlp/grpc_memleak_server
+      -
+        name: Build and push client
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}"
+          file: "./Dockerfile_client"
+          push: true
+          tags: zizdlp/grpc_memleak_client
